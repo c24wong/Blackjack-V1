@@ -4,21 +4,19 @@
 
 #include "card.h"
 #include "deck.h"
+#include "game.h"
 
 using namespace std;
 
 int main(){
-    Deck deck;
-    deck.initializeDeck();
-    
-//    Test case
-//    cout << "Deck created:" << endl;
-//    deck.printDeck();
+    Game game;
 
-    deck.shuffle();
+    int initialMoney;
+    cout << "Enter deposit amount: ";
+    cin >> initialMoney;
+    game.setMoney(initialMoney);
 
-    cout << "Deck shuffled:" << endl;
-    deck.printDeck();
+    game.gameStart();
 
     return 0;
 }

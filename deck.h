@@ -1,3 +1,6 @@
+#ifndef DECK_H
+#define DECK_H
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -28,3 +31,5 @@ class Deck{
 
         //void getHand();
 };
+
+#endif
