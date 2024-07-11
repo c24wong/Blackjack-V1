@@ -36,18 +36,17 @@ void Game::gameStart(){
                     exit(0);
             }
         }
-    }
 
     while(playerMoney != 0){
         placeBet();
-        dealHand();
-        playerTurn();
-        dealerTurn();
-        decideWin();
-        resetRound();
+        //dealHand();
+        //playerTurn();
+        //dealerTurn();
+        //decideWin();
+        //resetRound();
+    }
     }
 }
-
 void Game::placeBet(){
     cout << "You have $" << playerMoney << ". Enter your bet: ";
     cin >> currentBet;
