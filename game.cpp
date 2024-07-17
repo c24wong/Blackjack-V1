@@ -39,14 +39,29 @@ void Game::gameStart(){
 
     while(playerMoney != 0){
         placeBet();
-        //dealHand();
+        dealHand();
         //playerTurn();
         //dealerTurn();
         //decideWin();
         //resetRound();
     }
+
+    if(playerMoney == 0){
+        resetToken = true;
+    }
     }
 }
+
+void Game::printHand(const vector<Card>& hand) const {
+    for (size_t i = 0; i < hand.size(); ++i) {
+        cout << hand[i].number << " of " << hand[i].suit;
+        if (i < hand.size() - 1) {
+            cout << ", ";
+        }
+    }
+    cout << endl;
+}
+
 void Game::placeBet(){
     cout << "You have $" << playerMoney << ". Enter your bet: ";
     cin >> currentBet;
@@ -57,7 +72,18 @@ void Game::placeBet(){
     playerMoney -= currentBet;
 }
 
-//void Game::dealHand(){}
+void Game::dealHand(){
+    playerHand.push_back(deck.drawCard());
+    dealerHand.push_back(deck.drawCard());
+    playerHand.push_back(deck.drawCard());
+    dealerHand.push_back(deck.drawCard());
+
+    cout << "Your hand: ";
+    printHand(playerHand);
+    cout << "Dealer's hand: ";
+    cout << dealerHand[0].number << " of " << dealerHand[0].suit << " and [hidden card]" << endl;
+}
+
 //void Game::playerTurn(){}
 //void Game::dealerTurn(){}
 //void Game::decideWin(){}

@@ -19,6 +19,7 @@ class Game{
         Game();
         void setMoney(int money);
         void gameStart();
+        void printHand(const vector<Card>& hand) const;
         void dealHand();
         void playerTurn();
         void dealerTurn();

@@ -54,6 +54,13 @@ int Deck::cardValue(const Card& card) const{
     return value;
 }
 
+Card Deck::drawCard() {
+    if (currentCardIndex >= deckSize) {
+        shuffle(); // Shuffle if we've used all the cards
+    }
+    return deck[currentCardIndex++];
+}
+
 //Card Deck::getCard(int index) const {
 //    if (index >= 0 && index < deckSize) {
 //        return deck[index];

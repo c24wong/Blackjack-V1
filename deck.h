@@ -23,6 +23,7 @@ class Deck{
         void printDeck() const;
         void shuffle();
         int cardValue(const Card& card) const;
+        Card drawCard();
     //    Card getCard(int index) const;
 
     private:
