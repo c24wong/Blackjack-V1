@@ -40,9 +40,9 @@ void Game::gameStart(){
     while(playerMoney != 0){
         placeBet();
         dealHand();
-        //playerTurn();
-        //dealerTurn();
-        //decideWin();
+        playerTurn();
+        dealerTurn();
+        decideWin();
         //resetRound();
     }
 
@@ -84,7 +84,77 @@ void Game::dealHand(){
     cout << dealerHand[0].number << " of " << dealerHand[0].suit << " and [hidden card]" << endl;
 }
 
-//void Game::playerTurn(){}
-//void Game::dealerTurn(){}
-//void Game::decideWin(){}
+int Game::calculateHandValue(const vector<Card>& hand) const {
+    int totalValue = 0;
+    int aceCount = 0;
+
+    for (const auto& card : hand) {
+        if (card.number == "J" || card.number == "Q" || card.number == "K") {
+            totalValue += 10;
+        } else if (card.number == "A") {
+            totalValue += 11;
+            aceCount++;
+        } else {
+            totalValue += stoi(card.number);
+        }
+    }
+    while (totalValue > 21 && aceCount > 0) {
+        totalValue -= 10;
+        aceCount--;
+    }
+    return totalValue;
+}
+
+void Game::playerTurn(){
+    string choice;
+    while (calculateHandValue(playerHand) < 21) {
+        cout << "Hit or Stand? (h or s): ";
+        cin >> choice;
+        if(choice == "h" || choice == "hit" || choice == "Hit"){
+             playerHand.push_back(deck.drawCard());
+             cout << "Your hand: ";
+             printHand(playerHand);
+        }
+        else{
+            break;
+        }
+    }
+}
+
+void Game::dealerTurn() {
+    while (calculateHandValue(dealerHand) < 17) {
+        dealerHand.push_back(deck.drawCard());
+    }
+    cout << "Dealer's hand: ";
+    printHand(dealerHand);
+}
+
+void Game::decideWin(){
+    int playerValue = calculateHandValue(playerHand);
+    int dealerValue = calculateHandValue(dealerHand);
+
+    if (playerValue > 21){
+        cout << "You busted! Dealer Wins." << endl;
+    }
+    else if (dealerValue > 21){
+        cout << "Dealer busted! You win!" << endl;
+        playerMoney += currentBet * 2;
+    }
+    else if (playerValue > dealerValue){
+        cout << "You win!" << endl;
+        playerMoney += currentBet * 2;
+    }
+    else if (playerValue < dealerValue){
+        cout << "Dealer wins" << endl;
+    }
+    else{
+        cout << "Tie!" << endl;
+        playerMoney += currentBet;
+    }
+
+    if (playerMoney <= 0){
+        resetToken = true;
+    }
+}
+
 //void Game::resetRound(){}
