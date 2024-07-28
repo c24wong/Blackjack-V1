@@ -21,6 +21,7 @@ class Game{
         void gameStart();
         void printHand(const vector<Card>& hand) const;
         void dealHand();
+        int calculateHandValue(const vector<Card>& hand) const;
         void playerTurn();
         void dealerTurn();
         void decideWin();
