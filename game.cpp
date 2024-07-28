@@ -77,7 +77,6 @@ void Game::placeBet(){
             cout << "Game quitting. Goodbye!" << endl;
             exit(0);
         }
-    playerMoney -= currentBet;
     }
 }
 
@@ -144,6 +143,7 @@ void Game::decideWin(){
 
     if (playerValue > 21){
         cout << "You busted! Dealer Wins." << endl;
+        playerMoney -= currentBet;
     }
     else if (dealerValue > 21){
         cout << "Dealer busted! You win!" << endl;
@@ -155,10 +155,10 @@ void Game::decideWin(){
     }
     else if (playerValue < dealerValue){
         cout << "Dealer wins" << endl;
+        playerMoney -= currentBet;
     }
     else{
         cout << "Tie!" << endl;
-        playerMoney += currentBet;
     }
 
     if (playerMoney <= 0){
