@@ -28,6 +28,7 @@ void Game::gameStart(){
             int answer;
             cin >> answer;
                 if(answer == 1){
+                    cout << "Enter deposit amount: ";
                     cin >> newMoney;
                     setMoney(newMoney);
                 resetToken = false;
@@ -43,7 +44,7 @@ void Game::gameStart(){
         playerTurn();
         dealerTurn();
         decideWin();
-        //resetRound();
+        resetRound();
     }
 
     if(playerMoney == 0){
@@ -63,13 +64,21 @@ void Game::printHand(const vector<Card>& hand) const {
 }
 
 void Game::placeBet(){
-    cout << "You have $" << playerMoney << ". Enter your bet: ";
+    cout << "You have $" << playerMoney << ". Enter your bet (or enter 0 to quit): ";
     cin >> currentBet;
-    while (currentBet > playerMoney || currentBet <= 0) {
-        cout << "Invalid bet amount. Please enter a valid bet: ";
-        cin >> currentBet;
+    if (currentBet == 0) {
+        cout << "Game quitting. Goodbye!" << endl;
+        exit(0);
     }
+    while (currentBet > playerMoney || currentBet <= 0) {
+        cout << "Invalid bet amount. Enter a valid bet (or enter 0 to quit): ";
+        cin >> currentBet;
+        if (currentBet == 0) {
+            cout << "Game quitting. Goodbye!" << endl;
+            exit(0);
+        }
     playerMoney -= currentBet;
+    }
 }
 
 void Game::dealHand(){
@@ -157,4 +166,10 @@ void Game::decideWin(){
     }
 }
 
-//void Game::resetRound(){}
+void Game::resetRound() {
+    playerHand.clear();
+    dealerHand.clear();
+    if (playerMoney <= 0) {
+        resetToken = true;
+    }
+}
